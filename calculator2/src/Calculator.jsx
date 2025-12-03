@@ -3,6 +3,33 @@ import "./Calculator.scss";
 function Calculator() {
   const [screenValue, setScreenValue] = useState("0");
   const errorMsg = "You Hit Input Limit";
+  const nine = 9;
+  const eight = 8;
+  const seven = 7;
+  const six = 6;
+  const five = 5;
+  const four = 4;
+  const three = 3;
+  const two = 2;
+  const one = 1;
+  const zero = 0;
+
+  const addNumbers = function (Digit1, Digit2) {
+    return Number(Digit1) + Number(Digit2);
+  };
+
+  const plusBtn = () => {
+    setScreenValue((lastnum) => lastnum + "+");
+    addNumbers();
+    console.log(addNumbers());
+  };
+
+  const equalBtn = function () {
+    setScreenValue((lastnum) => lastnum + "=");
+    addNumbers();
+    console.log("hello world2");
+  };
+
   useEffect(() => {}, []);
 
   return (
@@ -58,7 +85,7 @@ function Calculator() {
               })
             }
           >
-            7
+            {seven}
           </button>
           <button
             id="eight"
@@ -70,7 +97,7 @@ function Calculator() {
               })
             }
           >
-            8
+            {eight}
           </button>
           <button
             id="nine"
@@ -82,7 +109,7 @@ function Calculator() {
               })
             }
           >
-            9
+            {nine}
           </button>
           <button
             id="add"
@@ -102,7 +129,7 @@ function Calculator() {
               })
             }
           >
-            4
+            {four}
           </button>
           <button
             id="five"
@@ -114,7 +141,7 @@ function Calculator() {
               })
             }
           >
-            5
+            {five}
           </button>
           <button
             id="six"
@@ -126,13 +153,9 @@ function Calculator() {
               })
             }
           >
-            6
+            {six}
           </button>
-          <button
-            id="plus"
-            className="btn btn-operator"
-            onClick={() => setScreenValue((lastnum) => lastnum + "+")}
-          >
+          <button id="plus" className="btn btn-operator" onClick={plusBtn}>
             +
           </button>
 
@@ -146,7 +169,7 @@ function Calculator() {
               })
             }
           >
-            1
+            {one}
           </button>
           <button
             id="two"
@@ -158,7 +181,7 @@ function Calculator() {
               })
             }
           >
-            2
+            {two}
           </button>
           <button
             id="three"
@@ -170,13 +193,9 @@ function Calculator() {
               })
             }
           >
-            3
+            {three}
           </button>
-          <button
-            id="equals"
-            className="btn equals"
-            onClick={() => setScreenValue((lastnum) => lastnum + "=")}
-          >
+          <button id="equals" className="btn equals" onClick={equalBtn}>
             =
           </button>
           <button
@@ -189,7 +208,7 @@ function Calculator() {
               })
             }
           >
-            0
+            {zero}
           </button>
           <button
             id="decimal"
