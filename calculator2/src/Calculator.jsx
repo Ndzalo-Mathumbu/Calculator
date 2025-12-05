@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Calculator.scss";
+import { async } from "regenerator-runtime";
 function Calculator() {
   const [screenValue, setScreenValue] = useState("0");
   const errorMsg = "You Hit Input Limit";
@@ -13,30 +14,71 @@ function Calculator() {
   const two = 2;
   const one = 1;
   const zero = 0;
-
-  const addNumbers = function (Digit1, Digit2) {
+  const times = "×";
+  const divide = "÷";
+  /* const addNumbers = function (Digit1, Digit2) {
     return Number(Digit1) + Number(Digit2);
   };
 
+  const minusNumbers = function (Digit1, Digit2) {
+    return Number(Digit1) - Number(Digit2);
+  };
+
+  const timesNumbers = function (Digit1, Digit2) {
+    return Number(Digit1) * Number(Digit2);
+  };
+
+  const divideNumbers = function (Digit1, Digit2) {
+    return Number(Digit1) / Number(Digit2);
+  };
   const plusBtn = () => {
     setScreenValue((lastnum) => lastnum + "+");
-    addNumbers();
-    console.log(addNumbers());
-  };
+  }; */
 
+  const plusBtn = () => {
+    setScreenValue((lastnum) => lastnum + "+");
+  };
+  let Result;
   const equalBtn = function () {
     setScreenValue((lastnum) => lastnum + "=");
-    addNumbers();
-    console.log("hello world2");
-  };
+    /*  const [leftNum, rightNum] = expression.split(/[+/-]/);
+    const [leftNum1, rightNum2] = expression.split(times);
+    const [leftNum2, rightNum3] = expression.split(divide);
 
+    const Result = addNumbers(Number(leftNum), Number(rightNum));
+    const Result2 = minusNumbers(Number(leftNum), Number(rightNum));
+    const Result3 = timesNumbers(Number(leftNum1), Number(rightNum2));
+    const Result4 = divideNumbers(Number(leftNum2), Number(rightNum3));
+
+    console.log(Result, Result2, Result3, Result4); */
+
+    const expression = screenValue
+      .replace(/×/g, "*")
+      .replace(/÷/g, "/")
+      .replace("=", "");
+
+    try {
+      Result = eval(expression);
+      console.log(Result);
+    } catch {
+      alert(`Math does not allow this ${screenValue}`);
+      setScreenValue(() => "Math Error:");
+      console.error("crashed 🔴💥");
+    }
+    setScreenValue(() => (Result !== 0 ? Result : screenValue));
+  };
+  /* const displayResult = function () {
+    setScreenValue(() => (Result !== 0 ? Result : screenValue));
+    screenValue.length >= 30 ? errorMsg : screenValue;
+  };  */
   useEffect(() => {}, []);
 
   return (
     <center>
       <div className="calc-container">
         <div className="display_two">
-          {screenValue.length >= 30 ? errorMsg : screenValue}
+          {Result}
+          {/* {screenValue.length >= 30 ? errorMsg : screenValue} */}
         </div>
         <div className="display">
           {screenValue.length >= 30 ? errorMsg : screenValue}
@@ -52,14 +94,14 @@ function Calculator() {
           <button
             id="divide"
             className="btn btn-accent btn-operator"
-            onClick={() => setScreenValue((lastnum) => lastnum + "÷")}
+            onClick={() => setScreenValue((lastnum) => lastnum + divide)}
           >
             ÷
           </button>
           <button
             id="multiply"
             className="btn btn-accent btn-operator"
-            onClick={() => setScreenValue((lastnum) => lastnum + "×")}
+            onClick={() => setScreenValue((lastnum) => lastnum + times)}
           >
             ×
           </button>
