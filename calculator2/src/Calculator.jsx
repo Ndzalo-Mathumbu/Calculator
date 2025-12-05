@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./Calculator.scss";
-import { async } from "regenerator-runtime";
+
 function Calculator() {
+  //   const display1 = document.querySelector(".display");
+
   const [screenValue, setScreenValue] = useState("0");
+  const [screenValue2, setScreenValue2] = useState("0");
+
   const errorMsg = "You Hit Input Limit";
   const nine = 9;
   const eight = 8;
@@ -16,6 +20,7 @@ function Calculator() {
   const zero = 0;
   const times = "×";
   const divide = "÷";
+
   /* const addNumbers = function (Digit1, Digit2) {
     return Number(Digit1) + Number(Digit2);
   };
@@ -37,10 +42,13 @@ function Calculator() {
 
   const plusBtn = () => {
     setScreenValue((lastnum) => lastnum + "+");
+    setScreenValue2((lastnum) => lastnum + "+");
   };
   let Result;
   const equalBtn = function () {
     setScreenValue((lastnum) => lastnum + "=");
+    setScreenValue2((lastnum) => lastnum + "=");
+
     /*  const [leftNum, rightNum] = expression.split(/[+/-]/);
     const [leftNum1, rightNum2] = expression.split(times);
     const [leftNum2, rightNum3] = expression.split(divide);
@@ -60,12 +68,18 @@ function Calculator() {
     try {
       Result = eval(expression);
       console.log(Result);
+      setScreenValue2(() => {
+        if (Result !== 0) {
+          return Result;
+        }
+      });
+      //   if (display1.textContent === String(Result)) return;
     } catch {
-      alert(`Math does not allow this ${screenValue}`);
       setScreenValue(() => "Math Error:");
+      setScreenValue2(() => "Math Error:");
+      alert(`Math does not allow this ${screenValue}`);
       console.error("crashed 🔴💥");
     }
-    setScreenValue(() => (Result !== 0 ? Result : screenValue));
   };
   /* const displayResult = function () {
     setScreenValue(() => (Result !== 0 ? Result : screenValue));
@@ -77,8 +91,7 @@ function Calculator() {
     <center>
       <div className="calc-container">
         <div className="display_two">
-          {Result}
-          {/* {screenValue.length >= 30 ? errorMsg : screenValue} */}
+          {screenValue.length >= 30 ? errorMsg : screenValue2}
         </div>
         <div className="display">
           {screenValue.length >= 30 ? errorMsg : screenValue}
@@ -87,32 +100,45 @@ function Calculator() {
           <button
             id="clear"
             className="btn btn-accent"
-            onClick={() => setScreenValue("0")}
+            onClick={() => {
+              setScreenValue("0");
+              setScreenValue2("0");
+            }}
           >
             AC
           </button>
           <button
             id="divide"
             className="btn btn-accent btn-operator"
-            onClick={() => setScreenValue((lastnum) => lastnum + divide)}
+            onClick={() => {
+              setScreenValue((lastnum) => lastnum + divide);
+              setScreenValue2((lastnum) => lastnum + divide);
+            }}
           >
             ÷
           </button>
           <button
             id="multiply"
             className="btn btn-accent btn-operator"
-            onClick={() => setScreenValue((lastnum) => lastnum + times)}
+            onClick={() => {
+              setScreenValue((lastnum) => lastnum + times);
+              setScreenValue2((lastnum) => lastnum + times);
+            }}
           >
             ×
           </button>
           <button
             id="erase"
             className="btn"
-            onClick={() =>
+            onClick={() => {
               setScreenValue((lastnum) =>
                 lastnum.length > 1 ? lastnum.slice(0, -1) : "0"
-              )
-            }
+              );
+
+              setScreenValue2((lastnum) =>
+                lastnum.length > 1 ? lastnum.slice(0, -1) : "0"
+              );
+            }}
           >
             ⌫
           </button>
@@ -120,43 +146,60 @@ function Calculator() {
           <button
             id="seven"
             className="btn"
-            onClick={() =>
+            onClick={() => {
               setScreenValue((lastnum) => {
                 if (lastnum === "0") return "7";
                 if (lastnum !== "0") return lastnum + "7";
-              })
-            }
+              });
+              setScreenValue2((lastnum) => {
+                if (lastnum === "0") return "7";
+                if (lastnum !== "0") return lastnum + "7";
+              });
+            }}
           >
             {seven}
           </button>
           <button
             id="eight"
             className="btn"
-            onClick={() =>
+            onClick={() => {
               setScreenValue((lastnum) => {
                 if (lastnum === "0") return "8";
                 if (lastnum !== "0") return lastnum + "8";
-              })
-            }
+              });
+
+              setScreenValue2((lastnum) => {
+                if (lastnum === "0") return "8";
+                if (lastnum !== "0") return lastnum + "8";
+              });
+            }}
           >
             {eight}
           </button>
           <button
             id="nine"
             className="btn"
-            onClick={() =>
+            onClick={() => {
               setScreenValue((lastnum) => {
                 if (lastnum === "0") return "9";
                 if (lastnum !== "0") return lastnum + "9";
-              })
-            }
+              });
+
+              setScreenValue2((lastnum) => {
+                if (lastnum === "0") return "9";
+                if (lastnum !== "0") return lastnum + "9";
+              });
+            }}
           >
             {nine}
           </button>
           <button
             id="add"
             className="btn btn-operator"
-            onClick={() => setScreenValue((lastnum) => lastnum + "-")}
+            onClick={() => {
+              setScreenValue((lastnum) => lastnum + "-");
+              setScreenValue2((lastnum) => lastnum + "-");
+            }}
           >
             -
           </button>
@@ -164,36 +207,49 @@ function Calculator() {
           <button
             id="four"
             className="btn"
-            onClick={() =>
+            onClick={() => {
               setScreenValue((lastnum) => {
                 if (lastnum === "0") return "4";
                 if (lastnum !== "0") return lastnum + "4";
-              })
-            }
+              });
+
+              setScreenValue2((lastnum) => {
+                if (lastnum === "0") return "4";
+                if (lastnum !== "0") return lastnum + "4";
+              });
+            }}
           >
             {four}
           </button>
           <button
             id="five"
             className="btn"
-            onClick={() =>
+            onClick={() => {
               setScreenValue((lastnum) => {
                 if (lastnum === "0") return "5";
                 if (lastnum !== "0") return lastnum + "5";
-              })
-            }
+              });
+              setScreenValue2((lastnum) => {
+                if (lastnum === "0") return "5";
+                if (lastnum !== "0") return lastnum + "5";
+              });
+            }}
           >
             {five}
           </button>
           <button
             id="six"
             className="btn"
-            onClick={() =>
+            onClick={() => {
               setScreenValue((lastnum) => {
                 if (lastnum === "0") return "6";
                 if (lastnum !== "0") return lastnum + "6";
-              })
-            }
+              });
+              setScreenValue2((lastnum) => {
+                if (lastnum === "0") return "6";
+                if (lastnum !== "0") return lastnum + "6";
+              });
+            }}
           >
             {six}
           </button>
@@ -204,36 +260,48 @@ function Calculator() {
           <button
             id="one"
             className="btn"
-            onClick={() =>
+            onClick={() => {
               setScreenValue((lastnum) => {
                 if (lastnum === "0") return "1";
                 if (lastnum !== "0") return lastnum + "1";
-              })
-            }
+              });
+              setScreenValue2((lastnum) => {
+                if (lastnum === "0") return "1";
+                if (lastnum !== "0") return lastnum + "1";
+              });
+            }}
           >
             {one}
           </button>
           <button
             id="two"
             className="btn"
-            onClick={() =>
+            onClick={() => {
               setScreenValue((lastnum) => {
                 if (lastnum === "0") return "2";
                 if (lastnum !== "0") return lastnum + "2";
-              })
-            }
+              });
+              setScreenValue2((lastnum) => {
+                if (lastnum === "0") return "2";
+                if (lastnum !== "0") return lastnum + "2";
+              });
+            }}
           >
             {two}
           </button>
           <button
             id="three"
             className="btn"
-            onClick={() =>
+            onClick={() => {
               setScreenValue((lastnum) => {
                 if (lastnum === "0") return "3";
                 if (lastnum !== "0") return lastnum + "3";
-              })
-            }
+              });
+              setScreenValue2((lastnum) => {
+                if (lastnum === "0") return "3";
+                if (lastnum !== "0") return lastnum + "3";
+              });
+            }}
           >
             {three}
           </button>
@@ -243,19 +311,26 @@ function Calculator() {
           <button
             id="zero"
             className="btn zero"
-            onClick={() =>
+            onClick={() => {
               setScreenValue((lastnum) => {
                 if (lastnum === "0") return "0";
                 if (lastnum !== "0") return lastnum + "0";
-              })
-            }
+              });
+              setScreenValue2((lastnum) => {
+                if (lastnum === "0") return "0";
+                if (lastnum !== "0") return lastnum + "0";
+              });
+            }}
           >
             {zero}
           </button>
           <button
             id="decimal"
             className="btn"
-            onClick={() => setScreenValue((lastnum) => lastnum + ".")}
+            onClick={() => {
+              setScreenValue((lastnum) => lastnum + ".");
+              setScreenValue2((lastnum) => lastnum + ".");
+            }}
           >
             .
           </button>
